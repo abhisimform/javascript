@@ -125,10 +125,63 @@
     }
 
     myMother.changeName("Doe");
-    printObject(myMother); 
+    printObject(myMother);
 
 
   </script>
+
+  <script>
+    function demoObjectKeys() {
+      print("<h1>Object.keys() Behavior Demo</h1>");
+
+      // 1. All string keys (non-integer)
+      const obj1 = { a: 1, z: 10, c: 4, b: 3 };
+      print("<h2>All string keys (non-integer)</h2>");
+      print("Object: "); printObject(obj1);
+      const keys1 = Object.keys(obj1);
+      print("Object.keys(): " + keys1 + "<br>");
+      // Output: ["a","z","c","b"] → insertion order
+
+      // 2. All integer-like keys
+      const obj2 = { 3: "three", 1: "one", 2: "two", 4: "four" };
+      print("<h2>All integer-like keys</h2>");
+      print("Object: "); printObject(obj2);
+      const keys2 = Object.keys(obj2);
+      print("Object.keys(): " + keys2 + "<br>");
+      // Output: ["1","2","3","4"] → ascending numeric order
+
+      // 3. Mixed string and integer keys
+      const obj3 = { b: "B", 2: "two", a: "A", 1: "one", c: "C", 3: "three" };
+      print("<h2>Mixed string and integer keys</h2>");
+      print("Object: "); printObject(obj3);
+      const keys3 = Object.keys(obj3);
+      print("Object.keys(): " + keys3 + "<br>");
+      // Output: ["1","2","3","b","a","c"]
+      // Explanation:
+      // - Integer-like keys first (ascending)
+      // - Then string keys in insertion order
+
+      // 4. Sorting keys explicitly
+      print("<h2>Explicitly sorted keys</h2>");
+      const sortedKeys = Object.keys(obj3).sort();
+      print("Sorted alphabetically: " + sortedKeys + "<br>");
+      const descKeys = Object.keys(obj3).sort().reverse();
+      print("Sorted descending: " + descKeys + "<br>");
+
+      // 5. Symbols (for completeness)
+      const sym1 = Symbol("foo");
+      const obj4 = { a: 1, [sym1]: "bar", b: 2 };
+      print("<h2>Symbols</h2>");
+      print("Object: "); printObject(obj4);
+      const stringKeys = Object.keys(obj4); // only string keys
+      print("Object.keys(): " + stringKeys + "<br>");
+      const allSymbols = Object.getOwnPropertySymbols(obj4); // only symbol keys
+      print("Object.getOwnPropertySymbols(): "); printObject(allSymbols);
+    }
+
+    demoObjectKeys();
+  </script>
+
 
 </body>
 
