@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Date Methods Demo</title>
+</head>
+
+<body>
+
+  <script src="helper.js"></script>
+
+  <script>
+    function demoDateMethods() {
+      let now = new Date();
+      print("<h2>Current Date Object</h2>");
+      printObject(now);
+
+      // Get Methods
+      print("<h2>GET METHODS</h2>");
+      print("getFullYear(): " + now.getFullYear() + "<br>");
+      print("getMonth(): " + now.getMonth() + " (0-11, Jan=0)<br>");
+      print("getDate(): " + now.getDate() + " (day of month)<br>");
+      print("getDay(): " + now.getDay() + " (0-Sun to 6-Sat)<br>");
+      print("getHours(): " + now.getHours() + "<br>");
+      print("getMinutes(): " + now.getMinutes() + "<br>");
+      print("getSeconds(): " + now.getSeconds() + "<br>");
+      print("getMilliseconds(): " + now.getMilliseconds() + "<br>");
+      print("getTime(): " + now.getTime() + " (milliseconds since 1970-01-01)<br>");
+      print("getTimezoneOffset(): " + now.getTimezoneOffset() + " (minutes difference from UTC)<br>");
+
+      // UTC Get Methods
+      print("<h3>UTC Get Methods</h3>");
+      print("getUTCFullYear(): " + now.getUTCFullYear() + "<br>");
+      print("getUTCMonth(): " + now.getUTCMonth() + "<br>");
+      print("getUTCDate(): " + now.getUTCDate() + "<br>");
+      print("getUTCDay(): " + now.getUTCDay() + "<br>");
+      print("getUTCHours(): " + now.getUTCHours() + "<br>");
+      print("getUTCMinutes(): " + now.getUTCMinutes() + "<br>");
+      print("getUTCSeconds(): " + now.getUTCSeconds() + "<br>");
+      print("getUTCMilliseconds(): " + now.getUTCMilliseconds() + "<br>");
+
+      // Set Methods
+      print("<h2>SET METHODS</h2>");
+      let d = new Date();
+      print("<b>Original:</b> "); printObject(d);
+
+      d.setFullYear(2025);
+      print("After setFullYear(2025): "); printObject(d);
+
+      d.setMonth(11); // December
+      print("After setMonth(11): "); printObject(d);
+
+      d.setDate(25);
+      print("After setDate(25): "); printObject(d);
+
+      d.setHours(15);
+      print("After setHours(15): "); printObject(d);
+
+      d.setMinutes(30);
+      print("After setMinutes(30): "); printObject(d);
+
+      d.setSeconds(45);
+      print("After setSeconds(45): "); printObject(d);
+
+      d.setMilliseconds(500);
+      print("After setMilliseconds(500): "); printObject(d);
+
+      // UTC Set Methods
+      d.setUTCFullYear(2030);
+      print("After setUTCFullYear(2030): "); printObject(d);
+
+      // Time Conversions
+      print("<h2>TIME CONVERSIONS</h2>");
+      print("toString(): " + now.toString() + "<br>");
+      print("toUTCString(): " + now.toUTCString() + "<br>");
+      print("toISOString(): " + now.toISOString() + "<br>");
+      print("toDateString(): " + now.toDateString() + "<br>");
+      print("toTimeString(): " + now.toTimeString() + "<br>");
+      print("toLocaleString(): " + now.toLocaleString() + "<br>");
+      print("toLocaleDateString(): " + now.toLocaleDateString() + "<br>");
+      print("toLocaleTimeString(): " + now.toLocaleTimeString() + "<br>");
+
+      // Parsing and ValueOf
+      print("<h2>PARSING & VALUE</h2>");
+      let dateStr = "2026-02-18T12:00:00";
+      let parsedDate = Date.parse(dateStr); // milliseconds
+      print("Date.parse('" + dateStr + "'): " + parsedDate + "<br>");
+      let fromMillis = new Date(parsedDate);
+      print("new Date(parsedMilliseconds): "); printObject(fromMillis);
+
+      print("valueOf(): " + now.valueOf() + "<br>"); // same as getTime()
+    }
+
+    demoDateMethods();
+  </script>
+
+  <script>
+    function demoAdvancedDateMethods() {
+      print("<h1>Advanced Date Methods & Tricks</h1>");
+
+      // Date.now() and Date.UTC()
+      print("<h2>Date.now() & Date.UTC()</h2>");
+      let now = new Date();
+      print("Current timestamp (Date.now()): " + Date.now() + "<br>");
+
+      let utcMillis = Date.UTC(2026, 1, 18, 10, 30, 0); // Feb is month 1
+      print("UTC milliseconds (Date.UTC(2026,1,18,10,30,0)): " + utcMillis + "<br>");
+      let utcDate = new Date(utcMillis);
+      print("UTC Date from milliseconds: "); printObject(utcDate);
+
+      // toJSON()
+      print("<h2>toJSON()</h2>");
+      print("toJSON(): " + now.toJSON() + "<br>"); // same as toISOString()
+
+      // toLocaleString() with options
+      print("<h2>toLocaleString() & toLocaleDateString() Options</h2>");
+      print("Default locale string: " + now.toLocaleString() + "<br>");
+
+      let options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+      print("Formatted (weekday, full month, year, day): " + now.toLocaleDateString("en-US", options) + "<br>");
+
+      let timeOptions = { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: true };
+      print("Formatted time (12h format): " + now.toLocaleTimeString("en-US", timeOptions) + "<br>");
+
+      // Date Arithmetic
+      print("<h2>Date Arithmetic</h2>");
+      let tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000); // add 1 day
+      print("Tomorrow: "); printObject(tomorrow);
+
+      let lastWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000); // subtract 7 days
+      print("Last Week: "); printObject(lastWeek);
+
+      let twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000); // add 2 hours
+      print("Two hours later: "); printObject(twoHoursLater);
+
+      // Comparing Dates
+      print("<h2>Comparing Dates</h2>");
+      let d1 = new Date("2026-02-18T10:00:00Z");
+      let d2 = new Date("2026-02-18T12:00:00Z");
+      print("d1: "); printObject(d1);
+      print("d2: "); printObject(d2);
+
+      print("d1 < d2: " + (d1 < d2) + "<br>"); // true
+      print("d1 > d2: " + (d1 > d2) + "<br>"); // false
+      print("d1.getTime() === d2.getTime(): " + (d1.getTime() === d2.getTime()) + "<br>"); // false
+      print("Difference in milliseconds: " + (d2 - d1) + " ms<br>");
+      print("Difference in hours: " + ((d2 - d1) / (1000 * 60 * 60)) + " hours<br>");
+
+      // Advanced Tricks / Playing with Dates
+      print("<h2>Playing with Dates</h2>");
+
+      // 1. Start of the day
+      let startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      print("Start of today: "); printObject(startOfDay);
+
+      // 2. End of the day
+      let endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+      print("End of today: "); printObject(endOfDay);
+
+      // 3. Next month same date
+      let nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, now.getDate());
+      print("Same date next month: "); printObject(nextMonth);
+
+      // 4. Last day of the month
+      let lastDayOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+      print("Last day of this month: "); printObject(lastDayOfMonth);
+
+      // 5. Difference between two arbitrary dates
+      let birthday = new Date("2026-12-25");
+      let diffDays = Math.ceil((birthday - now) / (1000 * 60 * 60 * 24));
+      print("Days until 25th Dec 2026: " + diffDays + " days<br>");
+
+      // 6. Leap year check
+      function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0);
+      }
+      print("Is 2026 a leap year? " + isLeapYear(2026) + "<br>");
+      print("Is 2024 a leap year? " + isLeapYear(2024) + "<br>");
+    }
+
+    demoAdvancedDateMethods();
+  </script>
+
+
+</body>
+
+</html>

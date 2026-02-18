@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scope in Java Script</title>
+</head>
+
+<body>
+
+  <script src="helper.js"></script>
+
+  <script>
+    // Global scope
+    let globalVar = "global variable";
+
+    function outerFunction() {
+      // Outer function scope
+      let outerVar = "outer function variable";
+
+      function innerFunction() {
+        // Inner function scope
+        let innerVar = "inner function variable";
+        printB("Inner Function Scope: <br>");
+        print("innerVar: " + innerVar + "<br>");
+        print("outerVar: " + outerVar + "<br>");
+        print("globalVar: " + globalVar + "<br><br>");
+      }
+
+      innerFunction();
+    }
+
+    outerFunction();
+
+
+    myFunction();
+
+    printB("Global Scope after calling myFunction: <br>");
+    print("carName: " + carName + "<br>");
+    // It print canName after the fucntion call because after the calling of myFunction the carName is created in the global scope and it can be accessed outside the function.
+
+    // and we can use "use strict" to avoid this type of error and it will not allow us to create a variable without declaring it.
+
+    function myFunction() {
+      carName = "Volvo";
+    }
+
+    
+  </script>
+</body>
+
+</html>

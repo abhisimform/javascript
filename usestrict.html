@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Strict Mode Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 20px;
+            padding: 0;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        pre {
+            background-color: #eaeaea;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #2c3e50;
+            color: #fff;
+        }
+        .note {
+            background-color: #dff0d8;
+            padding: 10px;
+            border-left: 5px solid #3c763d;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Strict Mode Notes</h1>
+
+    <h2>Definition</h2>
+    <p>
+        Strict mode is a way to run JavaScript in a "stricter" version that catches errors, prevents unsafe behaviors, 
+        and disables some confusing features.
+    </p>
+    <p><strong>Enabled with:</strong></p>
+    <pre>"use strict";</pre>
+
+    <h2>Enabling Strict Mode</h2>
+    <ul>
+        <li><strong>Whole script:</strong> Put <code>"use strict";</code> at the top of the file.</li>
+        <li><strong>Function only:</strong> Put <code>"use strict";</code> at the start of the function.</li>
+    </ul>
+
+    <pre>
+// Applies to whole script
+"use strict";
+
+// Applies only inside this function
+function myFunc() {
+    "use strict";
+}
+    </pre>
+
+    <h2>Key Features / Effects</h2>
+    <ol>
+        <li>
+            <strong>No accidental globals</strong>
+            <pre>
+"use strict";
+x = 10; // ❌ ReferenceError
+            </pre>
+        </li>
+        <li>
+            <strong>Prevents assignment to read-only properties</strong>
+            <pre>
+"use strict";
+const obj = {};
+Object.defineProperty(obj, "prop", { writable: false });
+obj.prop = 5; // ❌ TypeError
+            </pre>
+        </li>
+        <li>
+            <strong>Disallows duplicate parameter names</strong>
+            <pre>
+"use strict";
+function sum(a, a) {} // ❌ SyntaxError
+            </pre>
+        </li>
+        <li>
+            <strong>Changes <code>this</code> in functions</strong>
+            <p>Normal mode: <code>this</code> → global object</p>
+            <p>Strict mode: <code>this</code> → <code>undefined</code></p>
+            <pre>
+"use strict";
+function f() { console.log(this); }
+f(); // undefined
+            </pre>
+        </li>
+        <li>
+            <strong><code>with</code> statement is forbidden</strong>
+            <pre>
+"use strict";
+with (obj) { } // ❌ SyntaxError
+            </pre>
+        </li>
+        <li>
+            <strong><code>eval</code> and <code>arguments</code> are restricted</strong>
+            <p>Cannot assign to <code>eval</code> or <code>arguments</code>; arguments won’t reflect parameter changes.</p>
+        </li>
+        <li>
+            <strong>Strict mode is applied by default in ES6 modules and classes</strong>
+        </li>
+    </ol>
+
+    <h2>Comparison Table</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Non-Strict Mode</th>
+                <th>Strict Mode</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Undeclared variable</td>
+                <td>Allowed (creates global)</td>
+                <td>ReferenceError</td>
+            </tr>
+            <tr>
+                <td>Duplicate parameters</td>
+                <td>Allowed</td>
+                <td>SyntaxError</td>
+            </tr>
+            <tr>
+                <td>Assign read-only property</td>
+                <td>Fails silently</td>
+                <td>TypeError</td>
+            </tr>
+            <tr>
+                <td><code>this</code> in function</td>
+                <td>Global object</td>
+                <td>undefined</td>
+            </tr>
+            <tr>
+                <td><code>with</code> statement</td>
+                <td>Allowed</td>
+                <td>SyntaxError</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="note">
+        <strong>Interview-Friendly One-Liner:</strong>
+        <p><code>"use strict"</code> enforces stricter parsing and error handling, catching silent errors and preventing unsafe practices like accidental globals.</p>
+    </div>
+</body>
+</html>

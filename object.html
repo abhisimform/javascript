@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=\, initial-scale=1.0">
+  <title>Objects in Java Script</title>
+</head>
+
+<body>
+
+  <script src="helper.js"></script>
+
+  <script>
+
+    // Object creations
+
+    const person = {
+      id: 1,
+      firstName: "John",
+      lastName: "Doe",
+      age: 50,
+      eyeColor: "blue",
+      fullName: function () {
+        return this.firstName + " " + this.lastName;
+      },
+      getId: function () {
+        return this.id;
+      }
+    };
+
+    printB("Normal way to access object properties: <br>");
+    printObject(person);
+    b();
+
+    printB("This is object keys: " + Object.keys(person) + "<br>");
+    const personProperties = Object.keys(person);
+    b();
+
+    printB("This is object values: " + Object.values(person) + "<br>");
+    b();
+
+    print(person.fullName() + "<br>");
+
+    // New Property Added
+    person.nationality = "Indian";
+    printObject(person);
+
+    // Deleted property
+    delete person.eyeColor;
+    printObject(person);
+
+    person.cars = {
+      car1: "Ford",
+      car2: "BMW",
+      car3: "Fiat"
+    };
+    printObject(person);
+
+    let personId = person.getId();
+    print("Person Id: " + personId + "<br>");
+
+    person.getAge = function () {
+      return this.age;
+    };
+
+    let personAge = person.getAge();
+    print("Person Age: " + personAge + "<br>");
+
+
+
+    // Obejct Constructor 
+
+    function Person(first, last, age, eye) {
+      this.firstName = first;
+      this.lastName = last;
+      this.age = age;
+      this.eyeColor = eye;
+    }
+
+    const myFather = new Person("Father", "Doe", 50, "blue");
+    const myMother = new Person("Mother", "Rally", 48, "green");
+    const mySister = new Person("Sister", "Rally", 18, "green");
+    const mySelf = new Person("Me", "Rally", 22, "green");
+
+
+    printObject(myFather);
+    printObject(mySelf);
+
+    mySelf.nationality = "Indian";
+    printObject(mySelf);
+
+    // but in myFather object nationality is not added because it is added after the object creation and it is added to mySelf object only. It is not added to myFather object.
+
+    // but to add nationality to whole person object we can add it to the prototype of the Person constructor function.
+
+    Person.prototype.nationality = "Indian";
+    const myBrother = new Person("Brother", "Rally", 25, "green");
+    printObject(myBrother.nationality); // it will print Indian because it is added to the prototype of the Person constructor function.
+
+    print("myFather nationality: " + myFather.nationality + "<br>");
+    print("Does myBrother have own nationality? " + myBrother.hasOwnProperty("nationality") + "<br>");
+
+
+    //   nationality is added to the person.prototype not in the person object itself.So, it is not an own property of the person object.It is an inherited property from the prototype.
+
+    //   myBrother
+    //     |
+    //     | --firstName
+    //     | --lastName
+    //     | --age
+    //     | --eyeColor
+    //     |
+    //     ↓
+    //   Person.prototype
+    //     |
+    //     | --nationality = "Indian"
+    //     |
+    //     ↓
+    //   Object.prototype
+
+
+    Person.prototype.changeName = function (name) {
+      this.lastName = name;
+    }
+
+    myMother.changeName("Doe");
+    printObject(myMother); 
+
+
+  </script>
+
+</body>
+
+</html>
