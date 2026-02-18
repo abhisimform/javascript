@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Java Script</title>
+</head>
+
+<body>
+
+  <div id="box"></div>
+
+  <script>
+    const box = document.getElementById("box");
+
+    box.innerHTML = "<h2>Hello</h2><p>This is paragraph</p>";
+  </script>
+
+  <div id="box1">
+    <h2>Hello</h2>
+  </div>
+
+  <script>
+    const box1 = document.getElementById("box1");
+    console.log(box1.innerHTML);
+  </script>
+
+
+  <div id="box2"></div>
+  <div id="demo"></div>
+
+  <script>
+    const box2 = document.getElementById("box2");
+
+    box2.innerHTML = "<h2>Box 2</h2>";
+
+
+    let a = 10;
+
+    function outer() {
+      let a = 20;
+
+      function inner() {
+        console.log(a);
+      }
+
+      inner();
+    }
+
+    outer();
+
+
+
+    function myFunction() {
+      return this;
+    }
+
+    document.getElementById("demo").innerHTML = myFunction();
+
+  </script>
+
+
+</body>
+
+</html>
