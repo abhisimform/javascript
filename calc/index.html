@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scientific Calculator</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="calculator">
+
+    <div class="display">
+      <input type="text" class="display-input" id="calc-input">
+    </div>
+
+    <div class="buttons">
+
+      <button class="btn function-btn">2<sup>nd</sup></button>
+      <button class="btn constant-btn">π</button>
+      <button class="btn constant-btn">e</button>
+      <button class="btn control-btn">C</button>
+      <button class="btn control-btn">⌫</button>
+
+      <button class="btn function-btn">x<sup>2</sup></button>
+      <button class="btn function-btn">1/x</button>
+      <button class="btn function-btn">|x|</button>
+      <button class="btn function-btn">exp</button>
+      <button class="btn function-btn">mod</button>
+
+      <button class="btn function-btn">2&radic;x</button>
+      <button class="btn bracket-btn">(</button>
+      <button class="btn bracket-btn">)</button>
+      <button class="btn function-btn">n!</button>
+      <button class="btn operator-btn">&divide;</button>
+
+      <button class="btn function-btn">x<sup>y</sup></button>
+      <button class="btn number-btn" data-num="7">7</button>
+      <button class="btn number-btn" data-num="8">8</button>
+      <button class="btn number-btn" data-num="9">9</button>
+      <button class="btn operator-btn">&times;</button>
+
+      <button class="btn function-btn">10<sup>x</sup></button>
+      <button class="btn number-btn" data-num="4">4</button>
+      <button class="btn number-btn" data-num="5">5</button>
+      <button class="btn number-btn" data-num="6">6</button>
+      <button class="btn operator-btn">-</button>
+
+      <button class="btn function-btn">log</button>
+      <button class="btn number-btn" data-num="1">1</button>
+      <button class="btn number-btn" data-num="2">2</button>
+      <button class="btn number-btn" data-num="3">3</button>
+      <button class="btn operator-btn">+</button>
+
+      <button class="btn function-btn">ln</button>
+      <button class="btn function-btn">+/-</button>
+      <button class="btn number-btn" data-num="0">0</button>
+      <button class="btn number-btn" data-num=".">.</button>
+      <button class="btn equal-btn">=</button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+    const input = document.getElementById('calc-input');
+    console.log(input)
+
+    const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn =>
+      btn.addEventListener("click", (e) => {
+        updateInput(e.target.innerText);
+      })
+    );
+
+    function updateInput(t) {
+      input.value += t;
+    }
+
+
+  </script>
+
+</body>
+
+</html>
