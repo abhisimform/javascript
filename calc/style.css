@@ -5,8 +5,8 @@
 }
 
 body {
-  background-color: aliceblue;
-
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -21,6 +21,7 @@ body {
   font-size: 1.8rem;
   height: 60px;
   letter-spacing: 2px;
+  padding: 0 10px;
 }
 
 .calculator {
@@ -52,4 +53,8 @@ body {
 .equal-btn {
   color: white;
   background-color: black;
+}
+
+.equal-btn:hover {
+  background-color: rgb(0, 0, 0, 0.9);
 }
