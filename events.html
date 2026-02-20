@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events in Java Script</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    #grandparent {
+      width: 300px;
+      height: 300px;
+      background-color: red;
+    }
+
+    #parent {
+      width: 200px;
+      height: 200px;
+      background-color: green;
+    }
+
+    #child {
+      width: 100px;
+      height: 100px;
+      background-color: skyblue;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Events</h2>
+
+  <h4>There are mainly 3 types of events</h4>
+
+  <ul>
+    <li>1. Capturing Phase (Top → Down)</li>
+    <li>2. Target Phase (Actual Element)</li>
+    <li>3. Bubbling Phase (Down → Top)</li>
+  </ul>
+
+  <!-- Bubbling Phase -->
+  <div id="grandparent">
+    <div id="parent">
+      <button id="child">Click Me</button>
+    </div>
+  </div>
+
+  <!-- This is default behaviour like it will print
+
+  Child clicked
+  Parent clicked -->
+
+
+  <!-- Capturing Phase -->
+
+  <div id="host"></div>
+
+
+  <script src="helper.js"></script>
+  <script>
+    // Bubbling Phase
+    // document.getElementById("parent").addEventListener("click", (e) => {
+    //   console.log("Parent clicked");
+    // });
+
+    const grandparent = document.getElementById("grandparent");
+    const parent = document.getElementById("parent");
+    const child = document.getElementById("child");
+
+    grandparent.addEventListener("click", function (e) {
+      console.log("target:", e.target.id);
+      console.log("currentTarget:", e.currentTarget.id);
+    });
+
+    parent.addEventListener("click", () => {
+      console.log("parent");
+    });
+
+    child.addEventListener("click", () => {
+      console.log("child");
+    });
+
+    document.getElementById("child").addEventListener("dblclick", (e) => {
+      console.log(e);
+      console.log(e.target);
+      console.log(e.currentTarget);
+      console.log(e.type);
+      console.log(e.key);
+      console.log(e.preventDefault());
+      console.log(e.stopPropagation());
+
+    });
+
+    const host = document.getElementById("host");
+
+    const shadowRoot = host.attachShadow({ mode: "open" });
+
+    shadowRoot.innerHTML = `
+  <button id="btn">Click Me</button>
+`;
+
+    shadowRoot.querySelector("#btn").addEventListener("click", () => {
+      console.log("Button inside shadow DOM clicked");
+    });
+
+  </script>
+
+</body>
+
+</html>

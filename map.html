@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map in Java Script</title>
+</head>
+
+<body>
+
+  <script src="helper.js"></script>
+
+  <script>
+    function demoMapMethods() {
+      print("<h1>JavaScript Map Methods & Behavior</h1>");
+
+      // 1. Creating a Map
+      const map1 = new Map();
+      map1.set("name", "John");
+      map1.set("age", 25);
+      map1.set(1, "Number Key");
+
+      print("<h2>1. Creating a Map</h2>");
+      printObject(map1);
+
+      // 2. Getting values
+      print("<h2>2. Getting Values</h2>");
+      print("map1.get('name'): " + map1.get("name"));
+      print("<br>map1.get(1): " + map1.get(1));
+
+      // 3. Checking key existence
+      print("<h2>3. Checking Keys</h2>");
+      print("map1.has('age'): " + map1.has("age"));
+      print("<br>map1.has('salary'): " + map1.has("salary"));
+
+      // 4. Size of Map
+      print("<h2>4. Map Size</h2>");
+      print("map1.size: " + map1.size);
+
+      // 5. Iterating over Map
+      print("<h2>5. Iterating Map</h2>");
+      map1.forEach((value, key) => {
+        print(`Key: ${key}, Value: ${value}<br>`);
+      });
+
+      // 6. Using for...of
+      print("<h2>6. for...of Iteration</h2>");
+      for (let [key, value] of map1) {
+        print(`Key: ${key}, Value: ${value}`);
+      }
+
+      // 7. Deleting keys
+      print("<h2>7. Deleting Keys</h2>");
+      map1.delete("age");
+      printObject(map1);
+
+      // 8. Clearing Map
+      print("<h2>8. Clearing Map</h2>");
+      const tempMap = new Map([["a", 1], ["b", 2]]);
+      print("Before clear: "); printObject(tempMap);
+      tempMap.clear();
+      print("After clear: "); printObject(tempMap);
+
+      // 9. Map with Objects as Keys
+      print("<h2>9. Object as Key</h2>");
+      const objKey = { id: 1 };
+      const map2 = new Map();
+      map2.set(objKey, "Object Value");
+      print("map2.get(objKey): " + map2.get(objKey));
+
+      // 10. Converting Map to Array
+      print("<h2>10. Convert Map to Array</h2>");
+      const mapArray = Array.from(map1);
+      printObject(mapArray);
+
+      // 11. Converting Array to Map
+      print("<h2>11. Convert Array to Map</h2>");
+      const arr = [["x", 10], ["y", 20]];
+      const map3 = new Map(arr);
+      printObject(map3);
+
+      // 12. Updating Values
+      print("<h2>12. Updating Values</h2>");
+      map3.set("x", 100);
+      printObject(map3);
+
+      // 13. Keys, Values, Entries
+      print("<h2>13. Keys, Values, Entries</h2>");
+      print("Keys:");
+      for (let key of map3.keys()) print(key);
+
+      print("Values:");
+      for (let value of map3.values()) print(value);
+
+      print("Entries:");
+      for (let entry of map3.entries()) printObject(entry);
+    }
+
+    demoMapMethods();
+
+    if (new Map())
+      print("Empty Map is truthy");
+    else
+      print("Map is falsy");
+
+    scrollToBottom();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arrays in Java Script</title>
+</head>
+
+<body>
+
+  <script src="helper.js"></script>
+
+  <script>
+    function demoArrayMethods() {
+      print("<h1>JavaScript Array Methods & Behavior</h1>");
+
+      // 1. Creating an Array
+      const arr1 = [1, 10, 2, 20, 3, 4];
+      print("<h2>1. Creating an Array</h2>");
+      print("Array: "); printObject(arr1);
+
+      // 2. Array Methods
+      // Push (Add element to end)
+      arr1.push(100);
+      print("After push(100): "); printObject(arr1);
+
+      // Pop (Remove last element)
+      arr1.pop();
+      print("After pop(): "); printObject(arr1);
+
+      // Shift (Remove first element)
+      arr1.shift();
+      print("After shift(): "); printObject(arr1);
+
+      // Unshift (Add element to front)
+      arr1.unshift(0);
+      print("After unshift(0): "); printObject(arr1);
+
+      // Splice (Remove, replace or add elements)
+      arr1.splice(2, 1, 5, 6); // remove 1 element at index 2 and add 5, 6
+      print("After splice(2, 1, 5, 6): "); printObject(arr1);
+
+      // Slice (Extract part of the array)
+      const sliced = arr1.slice(1, 3);
+      print("After slice(1, 3): "); printObject(sliced);
+
+      // 3. Array Iteration Methods
+      print("<h2>2. Array Iteration</h2>");
+      arr1.forEach((item, index) => {
+        print(`forEach - Index: ${index}, Value: ${item}<br>`);
+      });
+
+      const doubled = arr1.map(item => item * 2);
+      print("<br><br>After map (doubled values): "); printObject(doubled);
+
+      const filtered = arr1.filter(item => item > 5);
+      print("After filter (values > 5): "); printObject(filtered);
+
+      const found = arr1.find(item => item === 10);
+      print("find (first occurrence of 10): " + found);
+
+      const index = arr1.findIndex(item => item === 10);
+      print("findIndex (index of 10): " + index);
+
+      const reduced = arr1.reduce((acc, item) => acc + item, 0);
+      print("After reduce (sum of elements): " + reduced);
+
+      // 4. Sorting Arrays
+      print("<h2>3. Sorting Arrays</h2>");
+      const arr2 = [1, 10, 2, 20, 3, 4];
+      print("Original array: "); printObject(arr2);
+
+      arr2.sort((a, b) => a - b); // Ascending numeric sort
+      print("Sorted ascending (a - b): "); printObject(arr2);
+
+      arr2.sort((a, b) => b - a); // Descending numeric sort
+      print("Sorted descending (b - a): "); printObject(arr2);
+
+      // 5. Array Destructuring
+      print("<h2>4. Array Destructuring</h2>");
+      const arr3 = [1, 2, 3, 4, 5];
+      const [first, second, ...rest] = arr3;
+      print(`Destructured - First: ${first}, Second: ${second}, Rest: `); printObject(rest);
+
+      // 6. Multi-dimensional arrays
+      print("<h2>5. Multi-dimensional Arrays</h2>");
+      const multiArr = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]
+      ];
+      print("Multi-dimensional Array: "); printObject(multiArr);
+
+      const flattened = multiArr.flat(); // Flatten array
+      print("Flattened Array: "); printObject(flattened);
+
+      // 7. Array Methods with Objects
+      print("<h2>6. Array Methods with Objects</h2>");
+      const arrOfObj = [
+        { id: 1, name: "John" },
+        { id: 2, name: "Jane" },
+        { id: 3, name: "Jack" }
+      ];
+
+      const foundObj = arrOfObj.find(obj => obj.id === 2);
+      print("find object with id=2: "); printObject(foundObj);
+
+      const updatedArr = arrOfObj.map(obj => {
+        if (obj.id === 2) obj.name = "Janet";
+        return obj;
+      });
+      print("After map (update name of id 2): "); printObject(updatedArr);
+
+      // 8. Converting arrays to strings
+      print("<h2>7. Converting Arrays to Strings</h2>");
+      const arr4 = ["apple", "banana", "cherry"];
+      print("join(): " + arr4.join(", "));
+      print("toString(): " + arr4.toString());
+    }
+
+    demoArrayMethods();
+
+    // [] also true the if statement, because it is an object in JavaScript, and all objects are truthy.
+    if ([])
+      printObject("This is true");
+    else
+      printObject("This is false");
+
+
+    const nums = [1, 10, 2, 20, 3, 4];
+
+    nums.sort();
+    printObject(nums);
+
+    // js sort will sort numbers as strings or we can say lexicographically, so we need to provide a compare function to sort numbers correctly.
+    nums.sort((a, b) => a - b);
+    printObject(nums);
+
+
+    scrollToBottom();
+  </script>
+
+  <script>
+    function demoArrayMethods() {
+      print("<h1>Advanced JavaScript Array Methods & Tricky Behaviors</h1>");
+
+      // 1. Array with holes (sparse arrays)
+      const sparseArr = [1, , 3]; // Notice the "hole" in the array
+      print("<h2>1. Sparse Arrays (Array with Holes)</h2>");
+      print("Sparse Array: "); printObject(sparseArr);
+      print("Length of Sparse Array: " + sparseArr.length + "<br>");
+      print("Iterating over Sparse Array (using forEach):");
+      sparseArr.forEach((item, index) => {
+        print(`Index ${index}: ${item === undefined ? 'undefined' : item}`);
+      });
+
+      // 2. Array with `.map()` on sparse array
+      print("<h2>2. Using .map() on Sparse Arrays</h2>");
+      const mappedArr = sparseArr.map(item => item * 2); // Will not map undefined hole
+      print("Mapped Sparse Array: "); printObject(mappedArr);
+
+      // 3. Array with duplicate values
+      const arrWithDupes = [1, 2, 2, 3, 4, 4, 4, 5];
+      print("<h2>3. Removing Duplicates (Using Set)</h2>");
+      const uniqueArr = [...new Set(arrWithDupes)];
+      print("Unique Array (using Set): "); printObject(uniqueArr);
+
+      // 4. Flattening arrays (multi-level nested)
+      print("<h2>4. Flattening Arrays (Multi-level Nested)</h2>");
+      const nestedArr = [1, [2, [3, [4]]], 5];
+      print("Nested Array: "); printObject(nestedArr);
+      const flattenedArr = nestedArr.flat(3); // Flatten up to depth of 3
+      print("Flattened Array: "); printObject(flattenedArr);
+
+      // 5. Converting to/from array-like objects
+      print("<h2>5. Converting to/from Array-Like Objects</h2>");
+      const arrayLikeObj = { 0: 'a', 1: 'b', 2: 'c', length: 3 }; // Like an array, but not one
+      const arrFromObject = Array.from(arrayLikeObj);
+      print("Array from Array-Like Object: "); printObject(arrFromObject);
+
+      // 6. The `fill()` method
+      print("<h2>6. Using .fill() to Initialize Arrays</h2>");
+      const arrFill = new Array(5).fill(0); // Fill an array with 0s
+      print("Filled Array with 0s: "); printObject(arrFill);
+
+      // 7. Array with large numbers
+      print("<h2>7. Handling Large Numbers and Precision</h2>");
+      const bigArr = [1e10, 1e11, 1e12]; // Large numbers (scientific notation)
+      print("Array with large numbers: "); printObject(bigArr);
+      print("Sum of large numbers (using reduce): " + bigArr.reduce((acc, val) => acc + val, 0));
+
+      // 8. The `concat()` method
+      print("<h2>8. Using .concat() Method</h2>");
+      const arr1 = [1, 2];
+      const arr2 = [3, 4];
+      const combined = arr1.concat(arr2);
+      print("Concatenated Arrays: "); printObject(combined);
+
+      // 9. Using `.indexOf()` and `.includes()`
+      print("<h2>9. Using .indexOf() and .includes()</h2>");
+      const searchArr = [1, 2, 3, 4, 5];
+      print(".indexOf(3): " + searchArr.indexOf(3)); // Returns index of element
+      print(".includes(4): " + searchArr.includes(4)); // Checks if element is in array
+
+      // 10. `.reverse()` and its side effects
+      print("<h2>10. The .reverse() Method</h2>");
+      const arrToReverse = [1, 2, 3, 4, 5];
+      const reversed = arrToReverse.reverse(); // Reverses in place
+      print("Reversed Array: "); printObject(reversed);
+      print("Original Array After Reverse: "); printObject(arrToReverse); // Note: reversed in place
+
+      // 11. `.sort()` behavior and quirks (lexicographical)
+      print("<h2>11. The .sort() Method (Lexicographical Sorting)</h2>");
+      const arrToSort = [10, 1, 100, 21, 3];
+      print("Original Array: "); printObject(arrToSort);
+      arrToSort.sort(); // Sorting numerically without compare function
+      print("Sorted (Lexicographical): "); printObject(arrToSort);
+
+      // 12. The `.sort()` with compare function
+      print("<h2>12. The .sort() Method (Numeric Sort)</h2>");
+      arrToSort.sort((a, b) => a - b); // Proper numerical sort
+      print("Sorted Numerically (a - b): "); printObject(arrToSort);
+
+      // 13. String join and array iteration
+      print("<h2>13. join() and Array Iteration</h2>");
+      const fruits = ["apple", "banana", "cherry"];
+      print("Array with join(): " + fruits.join(" - ")); // Convert array to string with separator
+
+      // 14. The `.slice()` method behavior
+      print("<h2>14. The .slice() Method</h2>");
+      const arrToSlice = [1, 2, 3, 4, 5];
+      const slicedArr = arrToSlice.slice(2); // Starts from index 2
+      print("Sliced Array (from index 2): "); printObject(slicedArr);
+
+      // 15. Array-like objects and `for...in` loop (behaviors with `for...in`)
+      print("<h2>15. Array-like Objects with for...in</h2>");
+      const arrayLike = { 0: 'a', 1: 'b', 2: 'c', length: 3 };
+      print("Array-Like Object: "); printObject(arrayLike);
+
+      for (let index in arrayLike) {
+        print(`for...in: Index ${index}, Value: ${arrayLike[index]}`);
+      }
+
+      // More Advanced Array Tricks
+
+      // 1. Arrays with holes and array methods
+      print("<h2>16. Arrays with Holes and Methods</h2>");
+      const arrWithHole = [1, , 3]; // Sparse array with a hole
+      print("Array with Hole: "); printObject(arrWithHole);
+      print("Array after .map() on sparse: "); printObject(arrWithHole.map(x => x * 2)); // The hole will remain undefined
+
+      // 2. Arrays as a set-like structure
+      print("<h2>17. Arrays as Set-like Structures</h2>");
+      const setLikeArray = [1, 2, 3, 1, 2, 3];
+      const uniqueValues = [...new Set(setLikeArray)]; // Removing duplicates
+      print("Unique values (Set-like behavior): "); printObject(uniqueValues);
+    }
+
+    demoArrayMethods();
+
+    scrollToBottom();
+  </script>
+
+</body>
+
+</html>
